@@ -96,11 +96,12 @@ namespace Projektr
 
             // create ExpandoObject Add calls
             var properties = ast.Any()
-                ? ast.Select(n => new { PropertyInfo = type.GetProperty(n.FieldName), Node = n })
-                : type.GetProperties().Select(pi => new { PropertyInfo = pi, Node = (FieldNode)null });
+                ? ast.Select(n => new { type.GetProperty(n.FieldName).PropertyType, Node = n })
+                : type.GetProperties().Select(pi => new { pi.PropertyType, Node = (FieldNode)null });
             foreach (var property in properties)
             {
-                var propertyExpression = Expression.Property(inputParameter, type.GetProperty(property.PropertyInfo.Name));
+                var propertyExpression = Expression.Property(inputParameter, type.GetProperty(property.Node.FieldName));
+                var propertyType = property.PropertyType;
                 Expression valueExpression;
                 if (property.Node == null || !property.Node.Any())
                 {
@@ -109,7 +110,7 @@ namespace Projektr
                 else
                 {
                     Type enumerableGenericType;
-                    if (property.PropertyInfo.PropertyType.IsEnumerable(out enumerableGenericType))
+                    if (propertyType.IsEnumerable(out enumerableGenericType))
                     {
                         var valueFunc = new CodeGenerator().Generate(enumerableGenericType, property.Node);
                         var valueFuncConstant = Expression.Constant(valueFunc);
@@ -119,7 +120,7 @@ namespace Projektr
                     }
                     else
                     {
-                        var valueFunc = new CodeGenerator().Generate(property.PropertyInfo.PropertyType, property.Node);
+                        var valueFunc = new CodeGenerator().Generate(propertyType, property.Node);
                         var valueFuncInvoke = valueFunc.GetType().GetMethod("Invoke");
                         var valueFuncConstant = Expression.Constant(valueFunc);
                         valueExpression = Expression.Call(valueFuncConstant, valueFuncInvoke, propertyExpression);
@@ -130,12 +131,15 @@ namespace Projektr
                     var castExpression = Expression.Convert(valueExpression, typeof(object));
                     valueExpression = castExpression;
                 }
+                var propertyName = property.Node.IsRenamed
+                    ? property.Node.NewName
+                    : property.Node.FieldName;
                 var addCall = Expression.Call(
                     varExpando,
                     typeof(IDictionary<string, object>).GetMethod("Add"),
                     new[]
                     {
-                        Expression.Constant(property.PropertyInfo.Name),
+                        Expression.Constant(propertyName),
                         valueExpression
                     });
                 _addPropertyCalls.Add(addCall);

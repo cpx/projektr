@@ -3,8 +3,9 @@
     public enum TokenType
     {
         Text = 1,
-        Separator,
+        FieldSeparator,
         OpenParens,
-        CloseParens
+        CloseParens,
+        RenameSeparator
     }
 }

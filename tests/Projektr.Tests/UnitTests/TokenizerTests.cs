@@ -29,7 +29,7 @@ namespace Projektr.Tests.UnitTests
             tokens.Should().HaveCount(3);
             tokens[0].Type.Should().Be(TokenType.Text);
             tokens[0].Value.Should().Be("field1");
-            tokens[1].Type.Should().Be(TokenType.Separator);
+            tokens[1].Type.Should().Be(TokenType.FieldSeparator);
             tokens[2].Type.Should().Be(TokenType.Text);
             tokens[2].Value.Should().Be("field2");
         }
@@ -64,13 +64,28 @@ namespace Projektr.Tests.UnitTests
             tokens[2].Type.Should().Be(TokenType.Text);
             tokens[2].Value.Should().Be("subfield1");
             tokens[3].Type.Should().Be(TokenType.CloseParens);
-            tokens[4].Type.Should().Be(TokenType.Separator);
+            tokens[4].Type.Should().Be(TokenType.FieldSeparator);
             tokens[5].Type.Should().Be(TokenType.Text);
             tokens[5].Value.Should().Be("field2");
             tokens[6].Type.Should().Be(TokenType.OpenParens);
             tokens[7].Type.Should().Be(TokenType.Text);
             tokens[7].Value.Should().Be("subfield2");
             tokens[8].Type.Should().Be(TokenType.CloseParens);
+        }
+
+        [Fact]
+        public void Test_Renamed_Field()
+        {
+            var input = "field1:newfield1";
+
+            var tokens = new Tokenizer().Tokenize(input).ToList();
+
+            tokens.Should().HaveCount(3);
+            tokens[0].Type.Should().Be(TokenType.Text);
+            tokens[0].Value.Should().Be("field1");
+            tokens[1].Type.Should().Be(TokenType.RenameSeparator);
+            tokens[2].Type.Should().Be(TokenType.Text);
+            tokens[2].Value.Should().Be("newfield1");
         }
     }
 }

@@ -39,12 +39,27 @@ namespace Projektr.Tests.UnitTests
             {
                 new FieldNode("X"),
             };
-            var test = new Class1 {X = "Foo"};
+            var test = new Class1 { X = "Foo" };
 
             IDictionary<string, object> result = new CodeGenerator().Generate<Class1>(ast)(test);
 
             result.Should().Contain("X", test.X);
             result.Should().NotContainKey("Y");
+        }
+
+        [Fact]
+        public void Generated_Method_Should_Copy_One_Property_And_Rename_It()
+        {
+            var ast = new RootNode
+            {
+                new FieldNode("X") {IsRenamed = true, NewName = "X1"},
+            };
+            var test = new Class1 { X = "Foo" };
+
+            IDictionary<string, object> result = new CodeGenerator().Generate<Class1>(ast)(test);
+
+            result.Should().Contain("X1", test.X);
+            result.Should().NotContainKey("X");
         }
 
         [Fact]

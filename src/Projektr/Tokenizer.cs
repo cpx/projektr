@@ -42,7 +42,9 @@ namespace Projektr
                 case ')':
                     return TokenType.CloseParens;
                 case ',':
-                    return TokenType.Separator;
+                    return TokenType.FieldSeparator;
+                case ':':
+                    return TokenType.RenameSeparator;
                 default:
                     return TokenType.Text;
             }

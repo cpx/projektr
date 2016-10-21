@@ -24,15 +24,26 @@ namespace Projektr
 
         private static void Parse(IEnumerator<Token> enumerator, ParserNode parentNode)
         {
-            ParserNode prevNode = null;
+            FieldNode prevNode = null;
             while(enumerator.MoveNext())
             {
                 var token = enumerator.Current;
                 if (token.Type == TokenType.Text)
                 {
-                    var fieldNode = new FieldNode(token.Value);
-                    prevNode = fieldNode;
-                    parentNode.Children.Add(fieldNode);
+                    if (prevNode?.IsRenamed == true)
+                    {
+                        prevNode.NewName = token.Value;
+                    }
+                    else
+                    {
+                        var fieldNode = new FieldNode(token.Value);
+                        prevNode = fieldNode;
+                        parentNode.Children.Add(fieldNode);
+                    }
+                }
+                if (token.Type == TokenType.RenameSeparator)
+                {
+                    prevNode.IsRenamed = true;
                 }
                 if (token.Type == TokenType.OpenParens)
                 {
@@ -67,6 +78,8 @@ namespace Projektr
     public class FieldNode : ParserNode
     {
         public string FieldName { get; }
+        public bool IsRenamed { get; set; }
+        public string NewName { get; set; }
 
         public FieldNode(string fieldName)
         {

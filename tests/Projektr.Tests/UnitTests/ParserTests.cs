@@ -25,6 +25,26 @@ namespace Projektr.Tests.UnitTests
         }
 
         [Fact]
+        public void Should_Return_One_Renamed_FieldNode()
+        {
+            var input = new[] { CreateTextToken("field1"), CreateRenameToken(), CreateTextToken("newfield1") };
+
+            var parser = new Parser(input);
+            var output = parser.Parse();
+
+            output.Should().NotBeNull();
+            output.Root.Should().NotBeNull();
+            output.Root.Should().NotBeNull();
+            var ast = output.Root;
+            ast.Should().HaveCount(1);
+            ast[0].FieldName.Should().Be("field1");
+            ast[0].IsRenamed.Should().BeTrue();
+            ast[0].NewName.Should().Be("newfield1");
+            ast[0].Should().NotBeNull();
+            ast[0].Should().BeEmpty();
+        }
+
+        [Fact]
         public void Should_Return_Two_FieldNodes()
         {
             var input = new[]
@@ -154,9 +174,14 @@ namespace Projektr.Tests.UnitTests
             return new Token(TokenType.CloseParens);
         }
 
+        private Token CreateRenameToken()
+        {
+            return new Token(TokenType.RenameSeparator);
+        }
+
         private Token CreateSeparatorToken()
         {
-            return new Token(TokenType.Separator);
+            return new Token(TokenType.FieldSeparator);
         }
 
         private static Token CreateTextToken(string text)
