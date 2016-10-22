@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Projektr.WebApi</id>
+    <version>$version$</version>
+    <authors>Christian Palmstierna</authors>
+    <description>
+      Projektr middleware for Web API.
+    </description>
+    <dependencies>
+      <dependency id="Projektr" version="$version$" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin/Projektr.WebApi.dll" target="lib/net452" />
+  </files>
+</package>

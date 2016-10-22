@@ -16,3 +16,6 @@ jspm_packages/
 *.ncrunchsolution
 NDependOut1/
 *.jfm
+
+out/
+build/tools/

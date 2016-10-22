@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>Projektr</id>
+    <version>$version$</version>
+    <authors>cpx86</authors>
+    <description>
+      A .NET library for filtering object properties using a text-based filter syntax.
+    </description>
+  </metadata>
+  <files>
+    <file src="bin/Projektr.dll" target="lib/net452" />
+  </files>
+</package>
