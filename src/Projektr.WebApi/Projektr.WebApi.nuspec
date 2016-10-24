@@ -5,8 +5,12 @@
     <version>$version$</version>
     <authors>Christian Palmstierna</authors>
     <description>
-      Projektr middleware for Web API.
+      Projektr middleware for Web API. Provides an easy way to allow API consumers to filter which parts of the response to receive.
     </description>
+    <summary>
+      Projektr middleware for Web API.
+    </summary>
+    <projectUrl>https://github.com/cpx/projektr</projectUrl>
     <dependencies>
       <dependency id="Projektr" version="$version$" />
     </dependencies>

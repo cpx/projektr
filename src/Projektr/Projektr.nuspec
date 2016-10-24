@@ -3,10 +3,11 @@
   <metadata>
     <id>Projektr</id>
     <version>$version$</version>
-    <authors>cpx86</authors>
+    <authors>Christian Palmstierna</authors>
     <description>
       A .NET library for filtering object properties using a text-based filter syntax.
     </description>
+    <projectUrl>https://github.com/cpx/projektr</projectUrl>
   </metadata>
   <files>
     <file src="bin/Projektr.dll" target="lib/net452" />
