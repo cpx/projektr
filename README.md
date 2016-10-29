@@ -40,7 +40,7 @@ var filteredRick2 = new
 	LastName = "Astley",
 	TopHits =
 		{
-			new Track
+			new
 			{
 				Title = "Never Gonna Give You Up",
 				Length = TimeSpan.Parse("0:3:31")
