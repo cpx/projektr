@@ -7,7 +7,7 @@
     <description>
       A .NET library for filtering object properties using a text-based filter syntax.
     </description>
-    <projectUrl>https://github.com/cpx/projektr</projectUrl>
+    <projectUrl>https://github.com/cpx86/projektr</projectUrl>
   </metadata>
   <files>
     <file src="bin/Projektr.dll" target="lib/net452" />

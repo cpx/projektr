@@ -10,7 +10,7 @@
     <summary>
       Projektr middleware for Web API.
     </summary>
-    <projectUrl>https://github.com/cpx/projektr</projectUrl>
+    <projectUrl>https://github.com/cpx86/projektr</projectUrl>
     <dependencies>
       <dependency id="Projektr" version="$version$" />
     </dependencies>
